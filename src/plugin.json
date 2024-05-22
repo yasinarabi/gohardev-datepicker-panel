@@ -3,6 +3,7 @@
   "type": "panel",
   "name": "Datepicker",
   "id": "gohardev-datepicker-panel",
+  "skipDataQuery": true,
   "info": {
     "keywords": ["panel"],
     "description": "A panel for working with gregorian persian arabic and indian calendars",

@@ -4,19 +4,8 @@ import { SimplePanel } from './components/SimplePanel';
 
 export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions((builder) => {
   return builder
-    // .addTextInput({
-    //   path: 'text',
-    //   name: 'Simple text option',
-    //   description: 'Description of panel option',
-    //   defaultValue: 'Default value of text input option',
-    // })
-    // .addBooleanSwitch({
-    //   path: 'showSeriesCount',
-    //   name: 'Show series counter',
-    //   defaultValue: false,
-    // })
     .addRadio({
-      path: 'type',
+      path: 'panelType',
       defaultValue: 'DP',
       name: 'Panel Type',
       settings: {
@@ -33,33 +22,85 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       },
     })
     .addRadio({
-      path: 'init',
-      defaultValue: 'now',
+      path: 'initValue',
+      defaultValue: 'NOW',
       name: 'Initial Value',
       settings: {
         options: [
           {
-            value: 'now',
+            value: 'NOW',
             label: 'Now',
           },
           {
-            value: 'null',
+            value: 'NULL',
             label: 'Null',
           },
           {
-            value: 'custom',
+            value: 'CUSTOM',
             label: 'Custom',
           },
         ],
       },
-      // showIf: (config) => config.showSeriesCount,
     })
     .addTextInput({
-      path: 'custom_init',
+      path: 'customInitValue',
       name: 'Custom Initial Value',
-      // description: 'Description of panel option',
-      // defaultValue: 'Default value of text input option',
-      showIf: (config) => config.init == 'custom',
+      showIf: (config) => config.initValue === 'CUSTOM',
 
-    });
+    })
+    .addRadio({
+        path: 'calendar',
+        defaultValue: 'G',
+        name: 'Calendar',
+        settings: {
+          options: [
+            {
+              value: 'G',
+              label: 'Gregorian',
+            },
+            {
+              value: 'P',
+              label: 'Persian',
+            },
+            {
+              value: 'A',
+              label: 'Arabic',
+            },
+            {
+                value: 'I',
+                label: 'Indian',
+            },
+          ],
+        },
+      })
+      .addRadio({
+        path: 'locale',
+        defaultValue: 'En',
+        name: 'Locale',
+        settings: {
+          options: [
+            {
+              value: 'En',
+              label: 'English',
+            },
+            {
+              value: 'Fa',
+              label: 'Farsi',
+            },
+            {
+              value: 'Ar',
+              label: 'Arabic',
+            },
+            {
+                value: 'Hi',
+                label: 'Hindi',
+            },
+          ],
+        },
+      })
+      .addBooleanSwitch({
+        path: 'showToday',
+        name: 'Show Today Button',
+        defaultValue: false,
+      });
 });
