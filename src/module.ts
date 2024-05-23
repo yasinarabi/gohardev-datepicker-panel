@@ -126,10 +126,47 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
             {
               value: 'multirange',
               label: 'Multirange',
+            }
+          ],
+        },
+      })
+      .addBooleanSwitch({
+        path: 'showDatePanel',
+        name: 'Show Date Panel',
+        category: ['General Options'],
+        defaultValue: false,
+        showIf: (config) => config.mode !== "single",
+      })
+      .addBooleanSwitch({
+        path: 'showRangeHover',
+        name: 'Show Range Hover Effect',
+        category: ['General Options'],
+        defaultValue: false,
+        showIf: (config) => config.mode === "range" || config.mode === "multirange",
+      })
+      // Date Picker Options
+      .addRadio({
+        path: 'otherPicker',
+        defaultValue: 'single',
+        name: 'Mode',
+        category: ['Date Picker Options'],
+        settings: {
+          options: [
+            {
+              value: 'time',
+              label: 'Time',
             },
             {
-              value: 'week',
-              label: 'Week',
+              value: 'onlytime',
+              label: 'Only Time',
+            },
+            {
+              value: 'analogtime',
+              label: 'Analog Time',
+            },
+            {
+              value: 'onlyanalogtime',
+              label: 'Only Analog',
             }
           ],
         },

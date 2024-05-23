@@ -1,0 +1,10 @@
+.rmdp-analog-clock {
+    width: 140px;
+    height: 140px;
+}
+
+.rmdp-time-picker input{
+    background-color: white;
+    color: black;
+    font-size: 12px !important;
+}

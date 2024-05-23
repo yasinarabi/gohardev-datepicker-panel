@@ -5,7 +5,8 @@ type localeValues = 'En' | 'Fa' | 'Ar' | 'Hi'
 type sizeValues = 'sm' | 'md' | 'lg'
 type variantValues = 'primary' | 'secondary' | 'destructive' | 'success'
 type fillValues = 'solid' | 'outline' | 'text'
-type modeValues = 'single' | 'multiple' | 'range' | 'multirange' | 'week'
+type modeValues = 'single' | 'multiple' | 'range' | 'multirange'
+type otherPickerValues = 'time' | 'onlytime' | 'analogtime' | 'onlyanalogtime'
 
 export interface SimpleOptions {
   // General Options
@@ -15,6 +16,9 @@ export interface SimpleOptions {
   calendar: calendarValues;
   locale: localeValues;
   mode: modeValues;
+  showDatePanel: boolean;
+  showRangeHover: boolean;
+  otherPicker: otherPickerValues;
   // Extra Buttons
   showToday: boolean;
   showDeselect: boolean;
