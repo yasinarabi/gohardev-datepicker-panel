@@ -4,10 +4,12 @@ import { SimplePanel } from './components/SimplePanel';
 
 export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions((builder) => {
   return builder
+    // General Options
     .addRadio({
       path: 'panelType',
-      defaultValue: 'DP',
+      defaultValue: 'C',
       name: 'Panel Type',
+      category: ['General Options'],
       settings: {
         options: [
           {
@@ -25,6 +27,7 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       path: 'initValue',
       defaultValue: 'NOW',
       name: 'Initial Value',
+      category: ['General Options'],
       settings: {
         options: [
           {
@@ -45,6 +48,7 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
     .addTextInput({
       path: 'customInitValue',
       name: 'Custom Initial Value',
+      category: ['General Options'],
       showIf: (config) => config.initValue === 'CUSTOM',
 
     })
@@ -52,6 +56,7 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
         path: 'calendar',
         defaultValue: 'G',
         name: 'Calendar',
+        category: ['General Options'],
         settings: {
           options: [
             {
@@ -77,6 +82,7 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
         path: 'locale',
         defaultValue: 'En',
         name: 'Locale',
+        category: ['General Options'],
         settings: {
           options: [
             {
@@ -98,9 +104,127 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
           ],
         },
       })
+      .addRadio({
+        path: 'mode',
+        defaultValue: 'single',
+        name: 'Mode',
+        category: ['General Options'],
+        settings: {
+          options: [
+            {
+              value: 'single',
+              label: 'Single',
+            },
+            {
+              value: 'multiple',
+              label: 'Multiple',
+            },
+            {
+              value: 'range',
+              label: 'Range',
+            },
+            {
+              value: 'multirange',
+              label: 'Multirange',
+            },
+            {
+              value: 'week',
+              label: 'Week',
+            }
+          ],
+        },
+      })
+      // Extra Buttons
       .addBooleanSwitch({
         path: 'showToday',
         name: 'Show Today Button',
+        category: ['Extra Buttons'],
         defaultValue: false,
+      })
+      .addBooleanSwitch({
+        path: 'showDeselect',
+        name: 'Show Deselect Button',
+        category: ['Extra Buttons'],
+        defaultValue: false,
+      })
+      .addRadio({
+        path: 'buttonsSize',
+        defaultValue: 'sm',
+        name: 'Buttons Size',
+        category: ['Extra Buttons'],
+        settings: {
+          options: [
+            {
+              value: 'sm',
+              label: 'Small',
+            },
+            {
+              value: 'md',
+              label: 'Medium',
+            },
+            {
+              value: 'lg',
+              label: 'Large',
+            }
+          ],
+        },
+        showIf: (config) => config.showToday || config.showDeselect,
+      })
+      .addRadio({
+        path: 'buttonsVariant',
+        defaultValue: 'primary',
+        name: 'Buttons Variant',
+        category: ['Extra Buttons'],
+        settings: {
+          options: [
+            {
+              value: 'primary',
+              label: 'Primary',
+            },
+            {
+              value: 'destructive',
+              label: 'Destructive',
+            },
+            {
+              value: 'success',
+              label: 'Success',
+            },
+            {
+              value: 'secondary',
+              label: 'Secondary',
+            },
+          ],
+        },
+        showIf: (config) => config.showToday || config.showDeselect,
+      })
+      .addRadio({
+        path: 'buttonsFill',
+        defaultValue: 'solid',
+        name: 'Buttons Fill',
+        category: ['Extra Buttons'],
+        settings: {
+          options: [
+            {
+              value: 'solid',
+              label: 'Solid',
+            },
+            {
+              value: 'outline',
+              label: 'Outline',
+            },
+            {
+              value: 'text',
+              label: 'Text',
+            }
+          ],
+        },
+        showIf: (config) => config.showToday || config.showDeselect,
+      })
+      .addBooleanSwitch({
+        path: 'buttonsTooltip',
+        name: 'Show Buttons Tooltip',
+        category: ['Extra Buttons'],
+        defaultValue: false,
+        showIf: (config) => config.showToday || config.showDeselect,
       });
 });

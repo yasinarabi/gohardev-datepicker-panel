@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import DatePicker, { Calendar, DateObject } from "react-multi-date-picker"
+import DatePanel from "react-multi-date-picker/plugins/date_panel"
+
+import ExtraButton from './ExtraButton';
 
 import Georgian from 'react-date-object/calendars/gregorian'
 import Persian from 'react-date-object/calendars/persian'
@@ -23,7 +26,7 @@ import indianEn from 'react-date-object/locales/indian_en'
 import indianFa from 'react-date-object/locales/indian_fa'
 import indianAr from 'react-date-object/locales/indian_ar'
 import indianHi from 'react-date-object/locales/indian_hi'
-// import { css, cs } from '@emotion/css';
+import { css } from '@emotion/css'
 // import { useStyles2, useTheme2 } from '@grafana/ui';
 // import { PanelDataErrorView } from '@grafana/runtime';
 
@@ -33,18 +36,9 @@ interface Props extends PanelProps<SimpleOptions> {}
 //   return {
 //     wrapper: css`
 //       font-family: Open Sans;
-//       position: relative;
 //     `,
 //     svg: css`
 //       position: absolute;
-//       top: 0;
-//       left: 0;
-//     `,
-//     textBox: css`
-//       position: absolute;
-//       bottom: 0;
-//       left: 0;
-//       padding: 10px;
 //     `,
 //   };
 // };
@@ -121,13 +115,43 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height, fie
   const [value, setValue] = useState(getInitValue(options))
   console.log(getInitValue(options));
 
-  if (options.panelType === 'C') {
-    return <Calendar value={value} onChange={handleChange} calendar={getCalendar(options)} locale={getLocale(options)} />
-  }
-  return <DatePicker value={value} onChange={handleChange} calendar={getCalendar(options)} locale={getLocale(options)} />;
+  const SelectedComponent = options.panelType === 'C' ? Calendar : DatePicker;
+  return (
+    <div
+      className={css`
+        width: ${width}px;
+        height: ${height}px;
+        overflow: hidden;
+      `}
+    >
+      <SelectedComponent value={value} onChange={handleChange} calendar={getCalendar(options)} locale={getLocale(options)} multiple={options.mode === 'multiple'}>
+        
+        {options.showToday ? 
+        (
+          <ExtraButton onClick={setToday} options={options} toolTip='Go To Today' > Today </ExtraButton>
+        ) : ( null )}
+        
+        {options.showDeselect ?
+        (
+          <ExtraButton onClick={deselect}  options={options} toolTip='Clear Selection' > Deselect </ExtraButton>
+        ) : ( null )}
+
+      </SelectedComponent>
+    </div>
+  )
   
+  
+  function setToday(){
+    const now = new DateObject({ calendar: getCalendar(options), locale: getLocale(options) })
+    setValue(now.format());
+  }
+
+  function deselect(){
+    setValue("");
+  }
+
   function handleChange(value: any){
-    setValue(value)
+    setValue(value);
   }
   
 };
