@@ -1,15 +1,7 @@
 import React from 'react';
 import { Button } from '@grafana/ui';
 import { css } from '@emotion/css';
-import { SimpleOptions } from 'types';
-
-
-interface ExtraButtonProps {
-    children: React.ReactNode;
-    onClick?: () => void;
-    options: SimpleOptions;
-    toolTip: string;
-}
+import { ExtraButtonProps } from 'types';
 
 const ExtraButton: React.FC<ExtraButtonProps> = ({children, onClick, options, toolTip}) => {
     return ( 

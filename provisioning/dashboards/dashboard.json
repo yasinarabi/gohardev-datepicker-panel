@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -28,16 +27,44 @@
         "uid": "grafana"
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 11,
+        "w": 6,
         "x": 0,
         "y": 0
       },
       "id": 1,
       "options": {
+        "animationDuration": 1000,
+        "animations": [],
+        "background": "light",
+        "buttonsFill": "solid",
+        "buttonsSize": "sm",
+        "buttonsTooltip": false,
+        "buttonsVariant": "primary",
+        "calendar": "G",
+        "horizontalPos": "center",
+        "initValue": "NOW",
+        "inputPlaceholder": "",
+        "inputWidth": 30,
+        "locale": "En",
+        "max": "NULL",
+        "min": "NULL",
+        "mode": "single",
+        "otherPicker": "disable",
+        "panelType": "C",
         "seriesCountSize": "sm",
+        "showDatePanel": false,
+        "showDeselect": false,
+        "showIcon": true,
+        "showInputIcon": true,
+        "showRangeHover": false,
         "showSeriesCount": false,
-        "text": "Default value of text input option"
+        "showToday": false,
+        "showWeekends": false,
+        "text": "Default value of text input option",
+        "theme": "default",
+        "verticalPos": "center",
+        "weekendDays": "0, 6"
       },
       "targets": [
         {
@@ -49,7 +76,7 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Calendar",
       "type": "gohardev-datepicker-panel"
     },
     {
@@ -58,16 +85,44 @@
         "uid": "trlxrdZVk"
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
+        "h": 3,
+        "w": 5,
+        "x": 6,
         "y": 0
       },
       "id": 2,
       "options": {
+        "animationDuration": 1000,
+        "animations": [],
+        "background": "light",
+        "buttonsFill": "solid",
+        "buttonsSize": "sm",
+        "buttonsTooltip": false,
+        "buttonsVariant": "primary",
+        "calendar": "G",
+        "horizontalPos": "center",
+        "initValue": "NOW",
+        "inputPlaceholder": "",
+        "inputWidth": 30,
+        "locale": "En",
+        "max": "NULL",
+        "min": "NULL",
+        "mode": "single",
+        "otherPicker": "disable",
+        "panelType": "DP",
         "seriesCountSize": "sm",
+        "showDatePanel": false,
+        "showDeselect": false,
+        "showIcon": true,
+        "showInputIcon": true,
+        "showRangeHover": false,
         "showSeriesCount": false,
-        "text": "Default value of text input option"
+        "showToday": false,
+        "showWeekends": false,
+        "text": "Default value of text input option",
+        "theme": "default",
+        "verticalPos": "center",
+        "weekendDays": "0, 6"
       },
       "targets": [
         {
@@ -80,7 +135,7 @@
           "scenarioId": "no_data_points"
         }
       ],
-      "title": "Panel Title",
+      "title": "Date Picker",
       "type": "gohardev-datepicker-panel"
     }
   ],
@@ -88,7 +143,38 @@
   "schemaVersion": 39,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "Variable 1",
+        "name": "var1",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {},
+        "hide": 0,
+        "label": "Variable 2",
+        "name": "var2",
+        "options": [],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -98,6 +184,6 @@
   "timezone": "",
   "title": "Provisioned datepicker dashboard",
   "uid": "a538aeff-5a8a-42a5-901c-938d896fdd6f",
-  "version": 1,
+  "version": 6,
   "weekStart": ""
 }

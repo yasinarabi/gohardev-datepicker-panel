@@ -6,7 +6,10 @@ type sizeValues = 'sm' | 'md' | 'lg'
 type variantValues = 'primary' | 'secondary' | 'destructive' | 'success'
 type fillValues = 'solid' | 'outline' | 'text'
 type modeValues = 'single' | 'multiple' | 'range' | 'multirange'
-type otherPickerValues = 'time' | 'onlytime' | 'analogtime' | 'onlyanalogtime'
+type otherPickerValues = 'disable' | 'time' | 'onlytime' | 'analogtime' | 'onlyanalogtime'
+type posValues = 'start' | 'center' | 'end'
+type themeValues = 'default' | 'red' | 'green'
+type backgroundValues = 'light' | 'dark' | 'gray' | 'brown'
 
 export interface SimpleOptions {
   // General Options
@@ -18,7 +21,13 @@ export interface SimpleOptions {
   mode: modeValues;
   showDatePanel: boolean;
   showRangeHover: boolean;
+  // Date Picker Options
+  // TODO add index of start day
   otherPicker: otherPickerValues;
+  min: initValueValues;
+  max: initValueValues;
+  customMinValue: string;
+  customMaxValue: string;
   // Extra Buttons
   showToday: boolean;
   showDeselect: boolean;
@@ -26,4 +35,32 @@ export interface SimpleOptions {
   buttonsVariant: variantValues;
   buttonsFill: fillValues;
   buttonsTooltip: boolean;
+  // Styles
+  animations: string[];
+  animationDuration: number;
+  showInputIcon: boolean;
+  showWeekends: boolean;
+  weekendDays: string;
+  verticalPos: posValues;
+  horizontalPos: posValues;
+  theme: themeValues;
+  background: backgroundValues;
+  // Input Styles
+  inputWidth: number;
+  inputPlaceholder: string;
+  showIcon: boolean;
+  // Destination
+  variable1: string;
+  variable2: string;
+}
+
+export interface CustomProps {
+  className?: string;
+}
+
+export interface ExtraButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  options: SimpleOptions;
+  toolTip: string;
 }
