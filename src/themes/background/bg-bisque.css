@@ -1,0 +1,24 @@
+.bg-bisque.rmdp-wrapper,
+.bg-bisque .rmdp-month-picker,
+.bg-bisque .rmdp-year-picker,
+.bg-bisque .rmdp-input,
+.bg-bisque .rmdp-time-picker div input,
+.rmdp-container .bg-bisque.ep-arrow::after {
+  background-color: bisque;
+}
+
+.rmdp-container .bg-bisque.ep-arrow[direction="top"] {
+  border-bottom: 1px solid bisque;
+}
+
+.rmdp-container .bg-bisque.ep-arrow[direction="left"] {
+  border-right: 1px solid bisque;
+}
+
+.rmdp-container .bg-bisque.ep-arrow[direction="right"] {
+  border-left: 1px solid bisque;
+}
+
+.rmdp-container .bg-bisque.ep-arrow[direction="bottom"] {
+  border-top: 1px solid bisque;
+}

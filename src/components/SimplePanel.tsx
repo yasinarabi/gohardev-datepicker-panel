@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions, CustomProps } from 'types';
-import DatePicker, { Calendar, DateObject } from "react-multi-date-picker"
+import DatePicker, { Calendar, DateObject, getAllDatesInRange } from "react-multi-date-picker"
 import { css } from '@emotion/css'
 import ExtraButton from './ExtraButton';
 import { Input, Icon } from '@grafana/ui';
 import { getInitValue, getCalendar, getLocale, getPlugins, getMinValue, getMaxValue, getAnimations } from 'utils';
 import { locationService } from '@grafana/runtime';
 
-import "react-multi-date-picker/styles/colors/green.css"
-import "react-multi-date-picker/styles/colors/red.css"
-import "react-multi-date-picker/styles/colors/purple.css"
-import "react-multi-date-picker/styles/colors/yellow.css"
-import "react-multi-date-picker/styles/colors/teal.css"
+import "../themes/color/green.css"
+import "../themes/color/red.css"
+import "../themes/color/purple.css"
+import "../themes/color/yellow.css"
+import "../themes/color/teal.css"
 
 import "react-multi-date-picker/styles/colors/analog_time_picker_green.css"
 import "react-multi-date-picker/styles/colors/analog_time_picker_red.css"
@@ -20,9 +20,10 @@ import "react-multi-date-picker/styles/colors/analog_time_picker_purple.css"
 import "react-multi-date-picker/styles/colors/analog_time_picker_yellow.css"
 import "react-multi-date-picker/styles/colors/analog_time_picker_teal.css"
 
-import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
-import "react-multi-date-picker/styles/backgrounds/bg-gray.css"
-import "react-multi-date-picker/styles/backgrounds/bg-brown.css"
+import "../themes/background/bg-dark.css"
+import "../themes/background/bg-gray.css"
+import "../themes/background/bg-brown.css"
+import "../themes/background/bg-bisque.css"
 
 import './styles.css'
 
@@ -47,7 +48,7 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height, fie
           display:inline-block;
         `}
         value={value}
-        onChange={handleChange}
+        onChange={setDestination}
         calendar={getCalendar(options)}
         locale={getLocale(options)}
         multiple={options.mode === 'multiple' || options.mode === 'multirange'}
@@ -98,10 +99,45 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height, fie
     setValue("");
   }
 
-  function handleChange(value: any){
-    locationService.partial({ 'var-dest': 'billing' }, true);
+  function setDestination(value: any){
+    let query: any = {};
+    const key: string = 'var-' + options.variable;
+    switch (options.mode){
+      case "single":
+        if (options.destination === "timerange"){
+          query[options.timerangeSingleDestination] = value.unix * 1000;
+        } else {
+          query[key] = value;
+        }
+        break;
+      case "multiple":
+        query[key] = value
+        break;
+      case "range":
+        if (options.destination === "timerange"){
+          query['from'] = value[0].unix * 1000;
+          query['to'] = value[value.length - 1].unix * 1000;
+        }
+        else if(options.setAllDatesToSingleVaribale){
+          const key: string = 'var-' + options.variable;
+          query[key] = getAllDatesInRange(value);
+        }
+        else {
+          const keyStart: string = 'var-' + options.rangeStartVariable;
+          const keyEnd: string = 'var-' + options.rangeEndVariable;
+          query[keyStart] = value[0];
+          query[keyEnd] = value[value.length - 1];
+        }
+        break;
+      case "multirange":
+        let dates: any[] = []
+        for (let i = 0; i < value.length; i++){
+          dates = dates.concat(getAllDatesInRange(value[i]))
+        }
+        query[key] = dates;
+    }
+    console.log(query);
+    locationService.partial(query, true);
     setValue(value);
   }
-  
 };
-

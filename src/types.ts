@@ -9,7 +9,10 @@ type modeValues = 'single' | 'multiple' | 'range' | 'multirange'
 type otherPickerValues = 'disable' | 'time' | 'onlytime' | 'analogtime' | 'onlyanalogtime'
 type posValues = 'start' | 'center' | 'end'
 type themeValues = 'default' | 'red' | 'green'
-type backgroundValues = 'light' | 'dark' | 'gray' | 'brown'
+type backgroundValues = 'light' | 'dark' | 'gray' | 'brown' | 'bisque'
+type destinationValues = 'timerange' | 'variables'
+type timerangeSingleDestinationValues = 'from' | 'to'
+
 
 export interface SimpleOptions {
   // General Options
@@ -50,8 +53,13 @@ export interface SimpleOptions {
   inputPlaceholder: string;
   showIcon: boolean;
   // Destination
-  variable1: string;
-  variable2: string;
+  destination: destinationValues;
+  timerangeSingleDestination: timerangeSingleDestinationValues;
+  setAllDatesToSingleVaribale: boolean;
+  variable: string;
+  rangeStartVariable: string;
+  rangeEndVariable: string;
+  // TODO add format and seprator
 }
 
 export interface CustomProps {

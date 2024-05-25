@@ -4,7 +4,10 @@
 }
 
 .rmdp-time-picker input{
+    font-size: 12px !important;
+}
+
+.bg-light .rmdp-input, .bg-light .rmdp-time-picker input{
     background-color: white;
     color: black;
-    font-size: 12px !important;
 }

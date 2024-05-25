@@ -3,6 +3,7 @@ import { SimpleOptions } from './types';
 import { SimplePanel } from './components/SimplePanel';
 import { getTemplateSrv } from '@grafana/runtime';
 
+
 export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions((builder) => {
   const variables = getTemplateSrv().getVariables();
   const variableOptions = variables.map((vr) => ({
@@ -464,6 +465,10 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
             label: 'Light',
           },
           {
+            value: 'bisque',
+            label: 'Bisque',
+          },
+          {
             value: 'dark',
             label: 'Dark',
           },
@@ -500,21 +505,87 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       showIf: (config) => config.panelType === "DP"
     })
     // Destination
-    .addSelect({
-      path: 'variable1',
-      name: 'Select Destination Variable',
-      settings: {
-        options: variableOptions,
-      },
+    .addRadio({
+      path: 'destination',
+      defaultValue: 'timerange',
+      name: 'Destination',
       category: ['Destination'],
+      settings: {
+        options: [
+          {
+            value: 'timerange',
+            label: 'Timerange',
+          },
+          {
+            value: 'variables',
+            label: 'Variables',
+          }
+        ],
+      },
+      showIf: (config) => config.mode === "single" || config.mode === "range"
+    })
+    .addRadio({
+      path: 'timerangeSingleDestination',
+      defaultValue: 'from',
+      name: 'Timerange Destination',
+      category: ['Destination'],
+      settings: {
+        options: [
+          {
+            value: 'from',
+            label: 'From',
+          },
+          {
+            value: 'to',
+            label: 'To',
+          }
+        ],
+      },
+      showIf: (config) => config.destination === "timerange" && config.mode === "single"
+    })
+    .addBooleanSwitch({
+      path: 'setAllDatesToSingleVaribale',
+      name: 'Set to single variable',
+      description: 'Set all selected dates to a single variable',
+      defaultValue: false,
+      showIf: (config) => config.destination === "variables" && config.mode === "range",
+      category: ['Destination']
     })
     .addSelect({
-      path: 'variable2',
+      path: 'variable',
       name: 'Select Destination Variable',
       settings: {
         options: variableOptions,
       },
       category: ['Destination'],
-      showIf: (config) => config.mode == "range"
+      showIf: function (config): boolean {
+        switch (config.mode) {
+          case "single":
+            return config.destination === "variables"
+          case "multiple":
+          case "multirange":
+            return true
+          case "range":
+            return config.destination === "variables" && config.setAllDatesToSingleVaribale
+        }
+      } 
+    })
+    .addSelect({
+      path: 'rangeStartVariable',
+      name: 'Start Date Variable',
+      settings: {
+        options: variableOptions,
+      },
+      category: ['Destination'],
+      showIf: (config) => config.mode === "range" && config.destination === "variables" && !config.setAllDatesToSingleVaribale
+    })
+    .addSelect({
+      path: 'rangeEndVariable',
+      name: 'End Date Variable',
+      settings: {
+        options: variableOptions,
+      },
+      category: ['Destination'],
+      showIf: (config) => config.mode === "range" && config.destination === "variables" && !config.setAllDatesToSingleVaribale
     });
 });

@@ -6,7 +6,7 @@
   "skipDataQuery": true,
   "info": {
     "keywords": ["panel"],
-    "description": "A panel for working with gregorian persian arabic and indian calendars",
+    "description": "Gregorian, Persian, Arabic and Indian calendars in Grafana",
     "author": {
       "name": "Gohardev"
     },
